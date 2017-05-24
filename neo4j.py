@@ -1,42 +1,48 @@
-from py2neo import Node
-from py2neo import Graph
-from py2neo import Relationship
-
-graph = Graph()
-graph.delete_all()
-
+from neo4jrestclient.client import GraphDatabase
+from neo4jrestclient import client
+ 
+db = GraphDatabase("http://localhost:7474", username="neo4j", password="5674899m")
 
 x = 0
-
-while x<3:
+while x==0:
     print "1. Ingrese Doctores"
     print "2. Ingrese pacientes."
     print "3. Ingrese un paciente que visito a un doctor"
     print "4. Consulta de doctores con especialidades"
     print "5. Ingreso de relaciones"
     print "6. Salir"
-
+    
     opcion = input()
-
+    doctor  = db.labels.create("Doctor")
+    pacien  = db.labels.create("Paciente")
+    
     if opcion == 1:
         doctor = raw_input("Ingrese el nombre del Doctor: ")
         espe = raw_input("Ingrese si tiene una especialidad (si/no): ")
         numero = raw_input("Ingrese el numero telefonico del doctor: ")
 
-        doctorneo4j = Node("Doctor", nombre = doctor, especialidad = espe, telefono = numero)
-        graph.create(doctorneo4j)
+        user = db.labels.create("Doctor")
+        u1 = db.nodes.create(Nombre= doctor, Especialidad = espe, Numero = numero)
+        user.add(u1)
+
 
     if opcion == 2:
         paciente = raw_input("Ingrese el nombre del Paciente: ")
         numero = raw_input("Ingrese el numero telefonico del paciente: ")
 
-        pacienteneo4j = Node("Paciente", nombre = paciente, telefono = numero)
-        graph.create(pacienteneo4j)
+      
+        user = db.labels.create("Paciente")
+        u1 = db.nodes.create(Nombre= paciente, Numero = numero)
+        user.add(u1)
+
+
 
     if opcion == 3:
         doc = raw_input("Ingrese el nombre del doctor: ")
-        paci = raw_input("Ingrese el nombre del paciente: "
-        graph.create(Relationshipt(doc, "Atendio", paci)
-    if opcion == 6:
-        x = 10
+        paci = raw_input("Ingrese el nombre del paciente: ")
+
+    if opcion ==6:
+        x=10
+        
+
         
