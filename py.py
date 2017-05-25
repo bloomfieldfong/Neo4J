@@ -46,9 +46,13 @@ while x==0:
         results = db.query(q, returns=(client.Node, str, client.Node))
         for r in results:
             print("(%s)" % (r[0]["Nombre"]))
-            print ("nani?")
-        print ("naniX2")
-        
+        u1=r[0]
+        q = 'MATCH (u:Paciente) WHERE u.Nombre="'+paci+'" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+        u2= r[0]
+        u2.relationships.create("atendio",u1)
     if opcion ==6:  
         x=10
         
