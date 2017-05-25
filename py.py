@@ -61,8 +61,21 @@ while x==0:
             print("(%s)" % (r[0]["Nombre"]))
 
     
-        
->>>>>>> b72539feb504c6f643f36e2addd8bc44b5f355a2
+    if opcion ==5:
+        doc = raw_input("Ingrese el nombre del paciente: ")
+        paci = raw_input("Ingrese el nombre del paciente: ")
+        q = 'MATCH (u:Paciente) WHERE u.Nombre="'+doc+'" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+        u1=r[0]
+        q = 'MATCH (u:Paciente) WHERE u.Nombre="'+paci+'" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+        u2= r[0]
+        u2.relationships.create("conoce",u1)
+
     if opcion ==6:  
         x=10
 
