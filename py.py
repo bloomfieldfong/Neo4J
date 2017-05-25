@@ -1,7 +1,10 @@
 from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import client
+from py2neo import Graph
  
-db = GraphDatabase("http://localhost:7474", username="neo4j", password="5674899m")
+db = GraphDatabase("http://localhost:7474", username="neo4j", password="1234")
+
+
 
 x = 0
 while x==0:
@@ -37,13 +40,14 @@ while x==0:
 
 
     if opcion == 3:
-        doc = raw_input("Ingrese el nombre del doctor: ")
-        paci = raw_input("Ingrese el nombre del paciente: ")
-        
-        n = db.node['Doctor',doc]
-        
-        print n
-            
+        #doc = raw_input("Ingrese el nombre del doctor: ")
+        #paci = raw_input("Ingrese el nombre del paciente: ")
+        q = 'MATCH (u:Doctor) WHERE u.Nombre="Roberto" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+            print ("nani?")
+        print ("naniX2")
         
     if opcion ==6:  
         x=10
