@@ -2,9 +2,7 @@ from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import client
 from py2neo import Graph
  
-db = GraphDatabase("http://localhost:7474", username="neo4j", password="1234")
-
-
+db = GraphDatabase("http://localhost:7474", username="neo4j", password="5674899m")
 
 x = 0
 while x==0:
@@ -12,7 +10,7 @@ while x==0:
     print "2. Ingrese pacientes."
     print "3. Ingrese un paciente que visito a un doctor"
     print "4. Consulta de doctores con especialidades"
-    print "5. Ingreso de relaciones"
+    print "5. Ingreso de relaciones entre paciente"
     print "6. Salir"
     
     opcion = input()
@@ -39,13 +37,16 @@ while x==0:
         user.add(u1)
 
 
+  
     if opcion == 3:
         doc = raw_input("Ingrese el nombre del doctor: ")
         paci = raw_input("Ingrese el nombre del paciente: ")
+        
         q = 'MATCH (u:Doctor) WHERE u.Nombre="'+doc+'" RETURN u'
         results = db.query(q, returns=(client.Node, str, client.Node))
         for r in results:
             print("(%s)" % (r[0]["Nombre"]))
+<<<<<<< HEAD
         u1=r[0]
         q = 'MATCH (u:Paciente) WHERE u.Nombre="'+paci+'" RETURN u'
         results = db.query(q, returns=(client.Node, str, client.Node))
@@ -53,7 +54,28 @@ while x==0:
             print("(%s)" % (r[0]["Nombre"]))
         u2= r[0]
         u2.relationships.create("atendio",u1)
+=======
+
+        e = 'MATCH (u:Paciente) WHERE u.Nombre="'+paci+'" RETURN u'
+        results = db.query(e, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+        print e
+
+  
+
+
+                  
+    if opcion == 4:
+        q = 'MATCH (u:Doctor) WHERE u.Especialidad="si" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print "El nombre del especialista: "
+            print("(%s)" % (r[0]["Nombre"]))
+
+    
+        
+>>>>>>> b72539feb504c6f643f36e2addd8bc44b5f355a2
     if opcion ==6:  
         x=10
-        
 
