@@ -40,9 +40,9 @@ while x==0:
 
 
     if opcion == 3:
-        #doc = raw_input("Ingrese el nombre del doctor: ")
-        #paci = raw_input("Ingrese el nombre del paciente: ")
-        q = 'MATCH (u:Doctor) WHERE u.Nombre="Roberto" RETURN u'
+        doc = raw_input("Ingrese el nombre del doctor: ")
+        paci = raw_input("Ingrese el nombre del paciente: ")
+        q = 'MATCH (u:Doctor) WHERE u.Nombre="'+doc+'" RETURN u'
         results = db.query(q, returns=(client.Node, str, client.Node))
         for r in results:
             print("(%s)" % (r[0]["Nombre"]))
