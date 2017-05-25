@@ -30,12 +30,23 @@ while x==0:
     ##Ingreso de doctores
     if opcion == 1:
         doctor = raw_input("Ingrese el nombre del Doctor: ")
-        espe = raw_input("Ingrese si tiene una especialidad (si/no): ")
         numero = raw_input("Ingrese el numero telefonico del doctor: ")
+        especi = raw_input("Ingrese si tiene una especialidad (si/no): ")
 
-        user = db.labels.create("Doctor")
-        u1 = db.nodes.create(Nombre= doctor, Especialidad = espe, Numero = numero)
-        user.add(u1)
+        if especi == "si":
+            espe = raw_input("Ingrese el nombre de la especialidad")
+            user = db.labels.create("Doctor")
+            u1 = db.nodes.create(Nombre= doctor, Especialidad = espe, Numero = numero)
+            user.add(u1)
+        else
+            
+            user = db.labels.create("Doctor")
+            u1 = db.nodes.create(Nombre= doctor, Numero = numero)
+            user.add(u1)
+            
+    
+
+        
 
     ##Ingreso de pacientes
     if opcion == 2:
