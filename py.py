@@ -14,8 +14,6 @@ while x==0:
     print "6. Salir"
     
     opcion = input()
-    doctor  = db.labels.create("Doctor")
-    pacien  = db.labels.create("Paciente")
     
     if opcion == 1:
         doctor = raw_input("Ingrese el nombre del Doctor: ")
@@ -40,11 +38,19 @@ while x==0:
     if opcion == 3:
         doc = raw_input("Ingrese el nombre del doctor: ")
         paci = raw_input("Ingrese el nombre del paciente: ")
+        medi = raw_input("Indique que medicina se le medico: ")
+
+        user = db.labels.create("Medicina")
+        u1 = db.nodes.create(Nombre= medi)
+        user.add(u1)
+        
+                         
         q = 'MATCH (u:Doctor) WHERE u.Nombre="'+doc+'" RETURN u'
         results = db.query(q, returns=(client.Node, str, client.Node))
         for r in results:
             print("(%s)" % (r[0]["Nombre"]))
         u1=r[0]
+        
         q = 'MATCH (u:Paciente) WHERE u.Nombre="'+paci+'" RETURN u'
         results = db.query(q, returns=(client.Node, str, client.Node))
         for r in results:
@@ -52,6 +58,14 @@ while x==0:
         u2= r[0]
         u2.relationships.create("atendio",u1)
 
+        q = 'MATCH (u:Medicina) WHERE u.Nombre="'+medi+'" RETURN u'
+        results = db.query(q, returns=(client.Node, str, client.Node))
+        for r in results:
+            print("(%s)" % (r[0]["Nombre"]))
+        u3=r[0]
+
+        u3.relationships.create("medico",u1)
+        u3.relationships.create("tomo",u2)
                   
     if opcion == 4:
         q = 'MATCH (u:Doctor) WHERE u.Especialidad="si" RETURN u'
